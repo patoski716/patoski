@@ -13,6 +13,11 @@ export default {
         foreground: "var(--foreground)",
       },
     },
+    fontFamily: {
+      ClashDisplay: ["ClashDisplay-Regular", "sans-serif"],
+      ClashDisplayBold: ["ClashDisplay-Bold", "sans-serif"],
+      ClashDisplaySemiBold: ["ClashDisplay-Semibold", "sans-serif"],
+    },
   },
   plugins: [],
 } satisfies Config;

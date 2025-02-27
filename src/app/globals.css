@@ -2,20 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.no-scrollbar {
+  scrollbar-width: none;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a192f;
+}
+@font-face {
+  font-family: "ClashDisplay-Regular";
+  src: url("/Fonts/WEB/fonts/ClashDisplay-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ClashDisplay-Semibold";
+  src: url("/Fonts/WEB/fonts/ClashDisplay-Semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ClashDisplay-Bold";
+  src: url("/Fonts/WEB/fonts/ClashDisplay-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
 }
