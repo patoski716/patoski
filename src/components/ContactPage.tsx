@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -11,6 +11,8 @@ import LinkedIn from "@assets/LinkedIn.svg";
 import Whatsapp from "@assets/whatsapp.svg";
 import Image from "next/image";
 import BaseUrl from "./Constants";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface FormData {
   first_name: string;
@@ -20,6 +22,12 @@ interface FormData {
 }
 
 const ContactPage = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 3000,
+      once: true,
+    });
+  }, []);
   const {
     register,
     handleSubmit,
@@ -73,6 +81,7 @@ const ContactPage = () => {
   return (
     <div
       id="contact"
+      data-aos="fade-up"
       className="mt-[50px] max-w-7xl mx-auto px-[20px] mb-[100px] md:mb-0"
     >
       <div className=" space-y-8">

@@ -1,8 +1,19 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
 import Check from "@assets/checkmark-square-04.svg";
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const About = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 3000,
+      once: true,
+    });
+  }, []);
+
   const specialties = [
     "User Experience (UX) & Interface Design (UI)",
     "Product Strategy & Roadmapping",
@@ -25,6 +36,7 @@ const About = () => {
   return (
     <div
       id="about"
+      data-aos="fade-up"
       className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px]"
     >
       <div className="space-y-8 max-w-[820px] w-full">

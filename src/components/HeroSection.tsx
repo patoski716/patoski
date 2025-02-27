@@ -11,6 +11,7 @@ const HeroSection = () => {
   useEffect(() => {
     AOS.init({
       duration: 3000,
+
       once: true,
     });
   }, []);
@@ -18,6 +19,7 @@ const HeroSection = () => {
   return (
     <div
       className="max-w-7xl px-[20px] mx-auto mt-[30px] md:mt-[64px]"
+      data-aos="fade-up"
       id="home"
     >
       <div className=" grid md:flex items-center md:justify-between">

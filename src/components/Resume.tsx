@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 const Resume = () => {
   const experiences = [
     {
@@ -67,8 +68,18 @@ const Resume = () => {
     "IBM Professional Product Management Certificate ( In-View )",
   ];
 
+  useEffect(() => {
+    AOS.init({
+      duration: 3000,
+      once: true,
+    });
+  }, []);
+
   return (
-    <div className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] text-[#FFFFFF]">
+    <div
+      className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] text-[#FFFFFF]"
+      data-aos="fade-up"
+    >
       <div className="flex items-center justify-center mb-[32px]">
         <button className="md:hidden px-[16px] sm:px-[32px] py-[12px] text-[16px] font-ClashDisplaySemiBold border border-[#64FFDA] rounded-[8px] text-[#64FFDA]">
           Download my resume

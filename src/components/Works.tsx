@@ -1,8 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import FigmaIcon from "@assets/figmaIcon.svg";
 import ShareLink from "@assets/LinkIcon.svg";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 interface Project {
   id: number;
@@ -16,6 +18,13 @@ interface LoadedImagesState {
 }
 
 const Works = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 3000,
+      once: true,
+    });
+  }, []);
+
   const [imagesLoaded, setImagesLoaded] = useState<LoadedImagesState>({});
 
   const projectsData: Project[] = [
@@ -50,7 +59,10 @@ const Works = () => {
   };
 
   return (
-    <div className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px] mb-[100px]">
+    <div
+      className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px] mb-[100px]"
+      data-aos="fade-up"
+    >
       <div className="space-y-8">
         <div className=" space-y-[24px] text-center">
           <p className="font-ClashDisplaySemiBold text-[#E7E8EA] text-[20px] md:text-[40px] ">

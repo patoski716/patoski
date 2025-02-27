@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import FigmaIcon from "@assets/figmaIcon.svg";
 import ShareLink from "@assets/LinkIcon.svg";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 interface Project {
   id: number;
   title: string;
@@ -16,6 +17,13 @@ interface LoadedImagesState {
 }
 
 const Projects = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 3000,
+      once: true,
+    });
+  }, []);
+
   const [imagesLoaded, setImagesLoaded] = useState<LoadedImagesState>({});
 
   const projectsData: Project[] = [
@@ -52,6 +60,7 @@ const Projects = () => {
   return (
     <div
       id="projects"
+      data-aos="fade-up"
       className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px]"
     >
       <div className="space-y-8">
