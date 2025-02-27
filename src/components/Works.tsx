@@ -59,12 +59,9 @@ const Works = () => {
   };
 
   return (
-    <div
-      className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px] mb-[100px]"
-      data-aos="fade-up"
-    >
+    <div className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px] mb-[100px]">
       <div className="space-y-8">
-        <div className=" space-y-[24px] text-center">
+        <div className=" space-y-[24px] text-center" data-aos="fade-up">
           <p className="font-ClashDisplaySemiBold text-[#E7E8EA] text-[20px] md:text-[40px] ">
             🚀 Explore My Work
           </p>
@@ -79,7 +76,7 @@ const Works = () => {
             const isLoaded = imagesLoaded[project.id];
 
             return (
-              <div className="" key={index}>
+              <div className="" key={index} data-aos="fade-up">
                 <div className=" group  max-w-[401px] bg-[#172A45] p-[12px] rounded-[16px] space-y-[16px]">
                   <div className="relative h-[228px] w-full bg-slate-50 rounded overflow-hidden">
                     {(!project.image || !isLoaded) && (

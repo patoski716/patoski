@@ -60,7 +60,6 @@ const Projects = () => {
   return (
     <div
       id="projects"
-      data-aos="fade-up"
       className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px]"
     >
       <div className="space-y-8">
@@ -78,7 +77,11 @@ const Projects = () => {
           const isLoaded = imagesLoaded[project.id];
 
           return (
-            <div className=" hidden md:block" key={project.id}>
+            <div
+              className=" hidden md:block "
+              key={project.id}
+              data-aos="fade-up"
+            >
               <div
                 className={`relative ${
                   alignment === "left" ? "flex items-center justify-end" : ""
