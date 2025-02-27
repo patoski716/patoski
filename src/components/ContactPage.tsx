@@ -72,7 +72,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="mt-[50px] max-w-7xl mx-auto mx-[10px]">
+    <div className="mt-[50px] max-w-7xl md:mx-auto mx-[10px]">
       <div className="space-y-[13px] text-center">
         {status.type && (
           <div
