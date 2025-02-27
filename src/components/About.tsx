@@ -23,7 +23,10 @@ const About = () => {
   );
 
   return (
-    <div className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px]">
+    <div
+      id="about"
+      className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px]"
+    >
       <div className="space-y-8 max-w-[820px] w-full">
         <div className="flex items-center gap-5">
           <p className="font-ClashDisplaySemiBold text-[#E7E8EA] text-[20px] md:text-[40px] flex items-center gap-2">

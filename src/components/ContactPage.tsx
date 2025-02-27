@@ -71,7 +71,10 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="mt-[50px] max-w-7xl mx-auto px-[20px]">
+    <div
+      id="contact"
+      className="mt-[50px] max-w-7xl mx-auto px-[20px] mb-[100px] md:mb-0"
+    >
       <div className=" space-y-8">
         <div className="flex items-center gap-5">
           <p className="font-ClashDisplaySemiBold text-[#E7E8EA] text-[20px] md:text-[40px] flex items-center gap-2">

@@ -24,21 +24,21 @@ const Works = () => {
       title: "A Real Estate Website",
       description:
         "Leptons Multiconcept Limited is a forward-thinking real estate development company dedicated to delivering comfort, value, and optimization in every project. We specialize in creating innovative properties tailored to modern lifestyles, ensuring quality, affordability, and sustainable living for our clients.",
-      image: "/project-image-1.jpg",
+      image: "",
     },
     {
       id: 2,
       title: "A Real Estate Website",
       description:
         "Leptons Multiconcept Limited is a forward-thinking real estate development company dedicated to delivering comfort, value, and optimization in every project. We specialize in creating innovative properties tailored to modern lifestyles, ensuring quality, affordability, and sustainable living for our clients.",
-      image: "/project-image-2.jpg",
+      image: "",
     },
     {
       id: 3,
       title: "A Real Estate Website",
       description:
         "Leptons Multiconcept Limited is a forward-thinking real estate development company dedicated to delivering comfort, value, and optimization in every project. We specialize in creating innovative properties tailored to modern lifestyles, ensuring quality, affordability, and sustainable living for our clients.",
-      image: "/project-image-3.jpg",
+      image: "",
     },
   ];
 
@@ -50,7 +50,7 @@ const Works = () => {
   };
 
   return (
-    <div className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px]">
+    <div className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px] mb-[100px]">
       <div className="space-y-8">
         <div className=" space-y-[24px] text-center">
           <p className="font-ClashDisplaySemiBold text-[#E7E8EA] text-[20px] md:text-[40px] ">
