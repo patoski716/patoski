@@ -126,7 +126,7 @@ const Navbar = () => {
               onClick={() => openModal(<ContactPage />)}
             >
               <Image
-                src="/assets/call-calling.svg"
+                src="/assets/call-calling_.svg"
                 alt="Contact"
                 width={24}
                 height={24}

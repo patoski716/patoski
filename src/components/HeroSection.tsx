@@ -17,7 +17,7 @@ const HeroSection = () => {
 
   return (
     <div
-      className="max-w-7xl mx-[10px] md:mx-auto mt-[30px] md:mt-[64px]"
+      className="max-w-7xl px-[20px] mx-auto mt-[30px] md:mt-[64px]"
       id="home"
     >
       <div className=" grid md:flex items-center md:justify-between">
