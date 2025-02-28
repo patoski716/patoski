@@ -5,6 +5,7 @@ import FigmaIcon from "@assets/figmaIcon.svg";
 import ShareLink from "@assets/LinkIcon.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Link from "next/link";
 interface Project {
   id: number;
   title: string;
@@ -221,9 +222,11 @@ const Projects = () => {
         })}
       </div>
 
-      <p className=" animate-pulse max-w-[120px] mx-auto mt-[32px] font-ClashDisplaySemiBold text-[#64FFDA] text-[16px] rounded-[8px] p-[12px] border border-[#64FFDA] flex items-center justify-center">
-        See More
-      </p>
+      <Link href="/works">
+        <p className=" animate-pulse max-w-[120px] mx-auto mt-[32px] font-ClashDisplaySemiBold text-[#64FFDA] text-[16px] rounded-[8px] p-[12px] border border-[#64FFDA] flex items-center justify-center">
+          See More
+        </p>
+      </Link>
     </div>
   );
 };
