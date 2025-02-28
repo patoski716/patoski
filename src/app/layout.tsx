@@ -16,7 +16,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PATRICK CHUKWUDIFU",
   description: "PATRICK CHUKWUDIFU PORTFOLIO",
-
   openGraph: {
     title: "PATRICK CHUKWUDIFU",
     description: "PATRICK CHUKWUDIFU PORTFOLIO",

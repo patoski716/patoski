@@ -112,11 +112,11 @@ const Works = () => {
                       </div>
                     )}
                     <div className="absolute inset-0 bg-black/40"></div>
-                    <div className="group-hover:block hidden transition-all  duration-500">
+                    {/* <div className="group-hover:block hidden transition-all  duration-500">
                       <p className="  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 font-ClashDisplaySemiBold text-[#64FFDA] text-[16px] rounded-[8px] p-[12px] border border-[#64FFDA] flex items-center justify-center">
                         See More
                       </p>
-                    </div>
+                    </div> */}
                   </div>
                   <div className=" space-y-[16px]">
                     <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">

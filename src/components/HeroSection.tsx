@@ -22,7 +22,7 @@ const HeroSection = () => {
       data-aos="fade-up"
       id="home"
     >
-      <div className=" grid md:flex items-center md:justify-between">
+      <div className=" grid gap-[20px] md:flex items-center md:justify-between">
         <div className="max-w-[800px] space-y-[16px]">
           <p className="text-[20px] font-ClashDisplay text-[#64FFDA]">
             <span className=" animate-pulse">👋</span> Hi, my name is
@@ -32,12 +32,7 @@ const HeroSection = () => {
           </p>
           <p className="font-ClashDisplayBold text-[32px] md:text-[40px] text-[#E7E8EA]">
             <Typewriter
-              words={[
-                "A Product Designer 🚀",
-                "A UX/UI Specialist 🎨",
-                "A Project Manager 💡",
-                "A Problem Solver 🔍",
-              ]}
+              words={["A Product Designer ", "A Product Manager "]}
               loop={true}
               cursor
               cursorStyle="_"

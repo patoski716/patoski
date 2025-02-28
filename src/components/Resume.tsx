@@ -58,7 +58,7 @@ const Resume = () => {
       period: "2025 - Present",
     },
     {
-      degree: "HND in Computer Science ( In-view )",
+      degree: "HND in Computer Science ( Upper Credit )",
       institution: "Federal Polytechnic Nekede Owerri, Imo State",
       period: "November, 2016 - October, 2021",
     },
@@ -91,7 +91,7 @@ const Resume = () => {
         <div className="md:hidden flex items-center justify-center">
           <div className="w-[50px] h-[50px] rounded-full border overflow-hidden">
             <Image
-              src="/assets/profile-picture.jpg"
+              src="/assets/profile-picture.png"
               alt="Patrick Chimezie Chukwudifu"
               width={50}
               height={50}
@@ -104,7 +104,7 @@ const Resume = () => {
             <div className="hidden md:block">
               <div className="w-[50px] h-[50px] rounded-full border overflow-hidden">
                 <Image
-                  src="/assets/profile-picture.jpg"
+                  src="/assets/profile-picture.png"
                   alt="Patrick Chimezie Chukwudifu"
                   width={50}
                   height={50}
