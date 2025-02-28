@@ -220,6 +220,10 @@ const Projects = () => {
           );
         })}
       </div>
+
+      <p className=" animate-pulse max-w-[120px] mx-auto mt-[32px] font-ClashDisplaySemiBold text-[#64FFDA] text-[16px] rounded-[8px] p-[12px] border border-[#64FFDA] flex items-center justify-center">
+        See More
+      </p>
     </div>
   );
 };
