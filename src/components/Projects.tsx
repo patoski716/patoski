@@ -60,6 +60,7 @@ const Projects = () => {
   return (
     <div
       id="projects"
+      data-aos="fade-up"
       className="max-w-7xl px-[20px] mx-auto my-[30px] lg:my-[64px] space-y-[32px]"
     >
       <div className="space-y-8">
