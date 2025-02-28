@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 
 import EmailIcon from "@assets/sms-tracking.svg";
 import CallIcon from "@assets/call-calling.svg";
@@ -10,9 +9,10 @@ import GlobalIcon from "@assets/global-search.svg";
 import LinkedIn from "@assets/LinkedIn.svg";
 import Whatsapp from "@assets/whatsapp.svg";
 import Image from "next/image";
-import BaseUrl from "./Constants";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { db } from "@/lib/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 interface FormData {
   first_name: string;
@@ -36,7 +36,7 @@ const ContactPage = () => {
     watch,
   } = useForm<FormData>();
   const [charCount, setCharCount] = useState(0);
-  const [status, setStatus] = useState<{
+  const [successMessage, setSuccessMessage] = useState<{
     type: "success" | "error" | null;
     message: string;
   }>({ type: null, message: "" });
@@ -55,26 +55,26 @@ const ContactPage = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await axios.post(`${BaseUrl}contact-us`, data);
+      await addDoc(collection(db, "contacts"), data);
 
-      if (response.status === 200 || response.status === 201) {
-        setStatus({
-          type: "success",
-          message:
-            "Message sent successfully! We will get back to you shortly.",
-        });
-        reset();
-        setCharCount(0);
-        setTimeout(() => {
-          setStatus({ type: null, message: "" });
-        }, 5000);
-      }
-    } catch (error) {
-      setStatus({
-        type: "error",
-        message: "Failed to send message. Please try again.",
+      setSuccessMessage({
+        type: "success",
+        message: "Message sent successfully! We will get back to you shortly.",
       });
-      console.error("Error sending message:", error);
+
+      reset();
+      setCharCount(0);
+
+      setTimeout(() => {
+        setSuccessMessage({ type: null, message: "" });
+      }, 5000);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      setSuccessMessage({
+        type: "error",
+        message:
+          "An error occurred while sending your message. Please try again.",
+      });
     }
   };
 
@@ -95,15 +95,15 @@ const ContactPage = () => {
 
         <div className=" space-y-8 border border-[#E7E8EA] rounded-[16px] p-[10px] md:p-[42px]">
           <div className="space-y-[13px] text-center">
-            {status.type && (
+            {successMessage.type && (
               <div
                 className={`mt-4 p-4 rounded-lg font-ClashDisplay text-[16px] ${
-                  status.type === "success"
+                  successMessage.type === "success"
                     ? "bg-green-50 text-green-800"
                     : "bg-red-50 text-red-800"
                 }`}
               >
-                {status.message}
+                {successMessage.message}
               </div>
             )}
 
