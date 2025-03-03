@@ -4,6 +4,8 @@ import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
 const Resume = () => {
+  const Url =
+    "https://drive.google.com/file/d/1LArAtMCUVOKok9FWei6YI_XuxVIwBxnJ/view?usp=sharing";
   const experiences = [
     {
       title: "Product Designer | Leptons Multiconcpet, Nigeria",
@@ -82,7 +84,10 @@ const Resume = () => {
       data-aos="fade-up"
     >
       <div className="flex items-center justify-center mb-[32px]">
-        <button className="md:hidden px-[16px] sm:px-[32px] py-[12px] text-[16px] font-ClashDisplaySemiBold border border-[#64FFDA] rounded-[8px] text-[#64FFDA]">
+        <button
+          className="md:hidden px-[16px] sm:px-[32px] py-[12px] text-[16px] font-ClashDisplaySemiBold border border-[#64FFDA] rounded-[8px] text-[#64FFDA]"
+          onClick={() => window.open(Url, "_blank")}
+        >
           Download my resume
         </button>
       </div>
@@ -255,7 +260,10 @@ const Resume = () => {
       </div>
 
       <div className="flex items-center justify-center mt-[44px]">
-        <button className="hidden md:block px-[16px] sm:px-[32px] py-[12px] text-[16px] font-ClashDisplaySemiBold border border-[#64FFDA] rounded-[8px] text-[#64FFDA]">
+        <button
+          className="hidden md:block px-[16px] sm:px-[32px] py-[12px] text-[16px] font-ClashDisplaySemiBold border border-[#64FFDA] rounded-[8px] text-[#64FFDA]"
+          onClick={() => window.open(Url, "_blank")}
+        >
           Download my resume
         </button>
       </div>

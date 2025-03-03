@@ -5,16 +5,20 @@ import FigmaIcon from "@assets/figmaIcon.svg";
 import ShareLink from "@assets/LinkIcon.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import Link from "next/link";
 interface Project {
-  id: number;
+  id: string;
   title: string;
   description: string;
-  image?: string;
+  projectImg?: string;
+  figmaUrl?: string;
+  websiteUrl?: string;
 }
 
 interface LoadedImagesState {
-  [key: number]: boolean;
+  [key: string]: boolean;
 }
 
 const Works = () => {
@@ -27,31 +31,35 @@ const Works = () => {
 
   const [imagesLoaded, setImagesLoaded] = useState<LoadedImagesState>({});
 
-  const projectsData: Project[] = [
-    {
-      id: 1,
-      title: "A Real Estate Website",
-      description:
-        "Leptons Multiconcept Limited is a forward-thinking real estate development company dedicated to delivering comfort, value, and optimization in every project. We specialize in creating innovative properties tailored to modern lifestyles, ensuring quality, affordability, and sustainable living for our clients.",
-      image: "",
-    },
-    {
-      id: 2,
-      title: "A Real Estate Website",
-      description:
-        "Leptons Multiconcept Limited is a forward-thinking real estate development company dedicated to delivering comfort, value, and optimization in every project. We specialize in creating innovative properties tailored to modern lifestyles, ensuring quality, affordability, and sustainable living for our clients.",
-      image: "",
-    },
-    {
-      id: 3,
-      title: "A Real Estate Website",
-      description:
-        "Leptons Multiconcept Limited is a forward-thinking real estate development company dedicated to delivering comfort, value, and optimization in every project. We specialize in creating innovative properties tailored to modern lifestyles, ensuring quality, affordability, and sustainable living for our clients.",
-      image: "",
-    },
-  ];
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "projects"));
+        const projectsList = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            title: data.title,
+            description: data.description,
+            figmaUrl: data.figmaUrl,
+            websiteUrl: data.websiteUrl,
+            projectImg: data.projectImg,
+          };
+        });
+        setProjectsData(projectsList);
+      } catch (error) {
+        console.error("Error fetching projects: ", error);
+      }
+    };
 
-  const handleImageLoaded = (id: number): void => {
+    fetchProjects();
+  }, []);
+
+  const [projectsData, setProjectsData] = useState<Project[]>([]);
+
+  console.log(projectsData);
+
+  const handleImageLoaded = (id: string): void => {
     setImagesLoaded((prev) => ({
       ...prev,
       [id]: true,
@@ -71,15 +79,15 @@ const Works = () => {
           </p>
         </div>
 
-        <div className=" grid gap-[20px] md:grid-cols-3 place-items-center">
+        <div className=" grid gap-[20px] md:grid-cols-3 place-items-center items-start ">
           {projectsData.map((project, index) => {
             const isLoaded = imagesLoaded[project.id];
 
             return (
               <div className="" key={index} data-aos="fade-up">
-                <div className=" group  max-w-[401px] bg-[#172A45] p-[12px] rounded-[16px] space-y-[16px]">
+                <div className=" group  max-w-[401px] h-[500px] bg-[#172A45] p-[12px] rounded-[16px] space-y-[16px]">
                   <div className="relative h-[228px] w-full bg-slate-50 rounded overflow-hidden">
-                    {(!project.image || !isLoaded) && (
+                    {(!project.projectImg || !isLoaded) && (
                       <div className="absolute inset-0 bg-gray-300 animate-pulse">
                         <div className="h-full w-full flex items-center justify-center">
                           <svg
@@ -95,10 +103,10 @@ const Works = () => {
                       </div>
                     )}
 
-                    {project.image && (
+                    {project.projectImg && (
                       <div className=" relative">
                         <Image
-                          src={project.image}
+                          src={`https://${project.projectImg}`}
                           alt={`${project.title} preview`}
                           layout="fill"
                           objectFit="cover"
@@ -122,13 +130,25 @@ const Works = () => {
                     <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
                       {project.title}
                     </p>
-                    <p className="font-ClashDisplay text-[16px] text-[#E7E8EA] text-justify">
+                    <p className="font-ClashDisplay text-[16px] text-[#E7E8EA] text-justify h-[120px] overflow-auto no-scrollbar">
                       {project.description}
                     </p>
                     <div className={`flex items-center gap-[16px]`}>
+                      {project.websiteUrl && (
+                        <Link href={project.websiteUrl} target="blank">
+                          <Image src={ShareLink} alt="share-icon" />
+                        </Link>
+                      )}
+                      {project.figmaUrl && (
+                        <Link href={project.figmaUrl} target="blank">
+                          <Image src={FigmaIcon} alt="figma-icon" />
+                        </Link>
+                      )}
+                    </div>
+                    {/* <div className={`flex items-center gap-[16px]`}>
                       <Image src={ShareLink} alt="share-icon" />
                       <Image src={FigmaIcon} alt="figma-icon" />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

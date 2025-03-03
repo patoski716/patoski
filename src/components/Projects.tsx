@@ -8,6 +8,7 @@ import "aos/dist/aos.css";
 import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+
 interface Project {
   id: string;
   title: string;
@@ -155,12 +156,12 @@ const Projects = () => {
                     } gap-[16px]`}
                   >
                     {project.websiteUrl && (
-                      <Link href={project.websiteUrl}>
+                      <Link href={project.websiteUrl} target="blank">
                         <Image src={ShareLink} alt="share-icon" />
                       </Link>
                     )}
                     {project.figmaUrl && (
-                      <Link href={project.figmaUrl}>
+                      <Link href={project.figmaUrl} target="blank">
                         <Image src={FigmaIcon} alt="figma-icon" />
                       </Link>
                     )}
@@ -224,12 +225,12 @@ const Projects = () => {
                   </p>
                   <div className={`flex items-center gap-[16px]`}>
                     {project.websiteUrl && (
-                      <Link href={project.websiteUrl}>
+                      <Link href={project.websiteUrl} target="blank">
                         <Image src={ShareLink} alt="share-icon" />
                       </Link>
                     )}
                     {project.figmaUrl && (
-                      <Link href={project.figmaUrl}>
+                      <Link href={project.figmaUrl} target="blank">
                         <Image src={FigmaIcon} alt="figma-icon" />
                       </Link>
                     )}
