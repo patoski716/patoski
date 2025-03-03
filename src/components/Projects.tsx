@@ -38,6 +38,7 @@ const Projects = () => {
       [id]: true,
     }));
   };
+  const [projectsData, setProjectsData] = useState<Project[]>([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -63,9 +64,6 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  const [projectsData, setProjectsData] = useState<Project[]>([]);
-
-  console.log(projectsData);
   return (
     <div
       id="projects"

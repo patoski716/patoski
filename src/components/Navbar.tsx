@@ -5,44 +5,45 @@ import Logo from "@assets/patrickLogo.svg";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
+const NAV_ITEMS = [
+  { id: "about", label: "About", number: "01." },
+  { id: "projects", label: "Projects", number: "02." },
+  { id: "contact", label: "Contact", number: "03." },
+];
+
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
   const router = useRouter();
 
-  const getSectionFromPath = (path: string) => {
-    if (path === "/resume") return "resume";
-
-    const hash = path.split("#")[1];
-    if (hash) return hash;
-
-    if (path === "/") return "about";
-
-    return "";
-  };
-
   useEffect(() => {
-    const section = getSectionFromPath(pathname);
-    setActiveSection(section);
+    const getSectionFromPath = (path: string) => {
+      if (path === "/resume") return "resume";
+      if (path === "/") return "about";
+
+      const hash = path.split("#")[1];
+      return hash || "";
+    };
+
+    setActiveSection(getSectionFromPath(pathname));
   }, [pathname]);
 
   useEffect(() => {
     if (pathname !== "/") return;
 
     const handleScroll = () => {
-      const sections = ["about", "projects", "contact"];
-      const currentSection = sections.find((section) => {
-        const element = document.getElementById(section);
+      const currentSection = NAV_ITEMS.find(({ id }) => {
+        const element = document.getElementById(id);
         if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          const { top, bottom } = element.getBoundingClientRect();
+          return top <= 100 && bottom >= 100;
         }
         return false;
       });
 
       if (currentSection) {
-        window.history.replaceState(null, "", `/#${currentSection}`);
-        setActiveSection(currentSection);
+        window.history.replaceState(null, "", `/#${currentSection.id}`);
+        setActiveSection(currentSection.id);
       }
     };
 
@@ -53,32 +54,48 @@ const Navbar = () => {
   const handleSmoothScroll = (targetId: string) => {
     if (pathname !== "/") {
       router.push(`/#${targetId}`);
-    } else {
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        window.history.pushState(null, "", `/#${targetId}`);
-        setActiveSection(targetId);
-        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      sessionStorage.setItem("scrollTarget", targetId);
+      return;
+    }
+
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      window.history.pushState(null, "", `/#${targetId}`);
+      setActiveSection(targetId);
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  const getMobileNavItemClasses = (section: string) => {
-    return `flex flex-col items-center gap-[6px] justify-center cursor-pointer ${
-      activeSection === section ? "text-[#64FFDA]" : "text-[#E7E8EA]"
-    }`;
-  };
+  useEffect(() => {
+    if (pathname !== "/") return;
 
-  const getDesktopNavItemClasses = (section: string) => {
-    return `cursor-pointer ${
+    const scrollTarget = sessionStorage.getItem("scrollTarget");
+    if (scrollTarget) {
+      setTimeout(() => {
+        const element = document.getElementById(scrollTarget);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          setActiveSection(scrollTarget);
+        }
+        sessionStorage.removeItem("scrollTarget");
+      }, 100);
+    }
+  }, [pathname]);
+
+  const getNavItemClasses = (section: string) =>
+    `cursor-pointer ${
       activeSection === section ? "text-[#64FFDA]" : "text-[#E7E8EA]"
     }`;
-  };
+
+  const navItems =
+    pathname === "/"
+      ? NAV_ITEMS
+      : [{ id: "about", label: "Home", number: "00." }];
 
   return (
     <div className="w-full sticky top-0 z-50 bg-[#0A192F]">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-center md:justify-between items-center py-[20px] px-4 lg:px-8">
+        <div className="flex justify-center md:justify-between items-center py-5 px-4 lg:px-8">
           <Link href="/">
             <Image
               src={Logo}
@@ -88,95 +105,66 @@ const Navbar = () => {
           </Link>
 
           <div className="hidden lg:block">
-            <ul className="text-[16px] text-[#E7E8EA] list-none font-ClashDisplaySemiBold flex items-center gap-[24px]">
-              <li
-                className={getDesktopNavItemClasses("about")}
-                onClick={() => handleSmoothScroll("about")}
-              >
-                <span className="font-ClashDisplaySemiBold text-[#64FFDA]">
-                  01.
-                </span>{" "}
-                About
-              </li>
-              <li
-                className={getDesktopNavItemClasses("projects")}
-                onClick={() => handleSmoothScroll("projects")}
-              >
-                <span className="font-ClashDisplaySemiBold text-[#64FFDA]">
-                  02.
-                </span>{" "}
-                Projects
-              </li>
-              <li
-                className={getDesktopNavItemClasses("contact")}
-                onClick={() => handleSmoothScroll("contact")}
-              >
-                <span className="font-ClashDisplaySemiBold text-[#64FFDA]">
-                  03.
-                </span>{" "}
-                Contact
-              </li>
+            <ul className="text-[16px] text-[#E7E8EA] list-none font-ClashDisplaySemiBold flex items-center gap-6">
+              {navItems.map(({ id, label, number }) => (
+                <li
+                  key={id}
+                  className={getNavItemClasses(id)}
+                  onClick={() => handleSmoothScroll(id)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <span className="font-ClashDisplaySemiBold text-[#64FFDA]">
+                    {number}
+                  </span>{" "}
+                  {label}
+                </li>
+              ))}
             </ul>
           </div>
 
           {activeSection !== "resume" && (
             <Link href="/resume">
-              <button className="hidden md:block px-[16px] sm:px-[32px] py-[12px] text-[16px] font-ClashDisplaySemiBold border border-[#64FFDA] rounded-[8px] text-[#64FFDA]">
+              <button className="hidden md:block px-4 sm:px-8 py-3 text-[16px] font-ClashDisplaySemiBold border border-[#64FFDA] rounded-[8px] text-[#64FFDA]">
                 View my resume
               </button>
             </Link>
           )}
 
           <div className="fixed right-0 bottom-0 w-full lg:hidden border-t bg-[#0A192F] border-[#E7E8EA] z-50">
-            <ul className="text-[12px] !text-[#48484A] list-none font-ClashDisplaySemiBold flex items-center justify-between px-4 py-2">
-              <li
-                className={getMobileNavItemClasses("about")}
-                onClick={() => handleSmoothScroll("about")}
-              >
-                <Image
-                  src="/assets/home-01.svg"
-                  alt="about"
-                  width={20}
-                  height={20}
-                />
-                <span>About</span>
-              </li>
-              <li
-                className={getMobileNavItemClasses("projects")}
-                onClick={() => handleSmoothScroll("projects")}
-              >
-                <Image
-                  src="/assets/share.svg"
-                  alt="Features"
-                  width={24}
-                  height={24}
-                />
-                <span>Projects</span>
-              </li>
-
-              <li
-                className={getMobileNavItemClasses("contact")}
-                onClick={() => handleSmoothScroll("contact")}
-              >
-                <Image
-                  src="/assets/call-calling_.svg"
-                  alt="Contact"
-                  width={24}
-                  height={24}
-                />
-                <span>Contact</span>
-              </li>
-              <Link href="/resume">
-                <li className={getMobileNavItemClasses("resume")}>
+            <ul className="text-[12px] text-[#48484A] list-none font-ClashDisplaySemiBold flex items-center justify-between px-4 py-2">
+              {navItems.map(({ id, label }) => (
+                <li
+                  key={id}
+                  className={`flex flex-col items-center gap-1 justify-center cursor-pointer ${
+                    activeSection === id ? "text-[#64FFDA]" : "text-[#E7E8EA]"
+                  }`}
+                  onClick={() => handleSmoothScroll(id)}
+                  role="button"
+                  tabIndex={0}
+                >
                   <Image
-                    src="/assets/document-text.svg"
-                    alt="FAQ"
-                    width={24}
-                    height={24}
+                    src={`/assets/${id}.svg`}
+                    alt={label}
+                    width={20}
+                    height={20}
                   />
-                  <span>Resume</span>
+                  <span>{label}</span>
                 </li>
-              </Link>
+              ))}
+              {activeSection !== "resume" && (
+                <Link href="/resume">
+                  <li className="flex flex-col items-center gap-1 justify-center text-[#E7E8EA] cursor-pointer">
+                    <Image
+                      src="/assets/document-text.svg"
+                      alt="Resume"
+                      width={24}
+                      height={24}
+                    />
+                    <span>Resume</span>
+                  </li>
+                </Link>
+              )}
             </ul>
           </div>
         </div>
