@@ -13,6 +13,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 interface FormData {
   first_name: string;
@@ -54,6 +55,7 @@ const ContactPage = () => {
     try {
       await addDoc(collection(db, "contacts"), data);
       setSuccessMessage("Your message has been sent!");
+      toast.success("Your message has been sent!");
       reset();
     } catch (error) {
       console.error("Error adding document: ", error);

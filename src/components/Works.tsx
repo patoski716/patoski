@@ -30,7 +30,9 @@ const Works = () => {
   }, []);
 
   const [imagesLoaded, setImagesLoaded] = useState<LoadedImagesState>({});
+  const [projectsData, setProjectsData] = useState<Project[]>([]);
 
+  console.log(projectsData);
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -54,10 +56,6 @@ const Works = () => {
 
     fetchProjects();
   }, []);
-
-  const [projectsData, setProjectsData] = useState<Project[]>([]);
-
-  console.log(projectsData);
 
   const handleImageLoaded = (id: string): void => {
     setImagesLoaded((prev) => ({
@@ -86,7 +84,7 @@ const Works = () => {
             return (
               <div className="" key={index} data-aos="fade-up">
                 <div className=" group  max-w-[401px] h-[500px] bg-[#172A45] p-[12px] rounded-[16px] space-y-[16px]">
-                  <div className="relative h-[228px] w-full bg-slate-50 rounded overflow-hidden">
+                  <div className="relative h-[228px] w-full rounded overflow-hidden">
                     {(!project.projectImg || !isLoaded) && (
                       <div className="absolute inset-0 bg-gray-300 animate-pulse">
                         <div className="h-full w-full flex items-center justify-center">
@@ -104,7 +102,7 @@ const Works = () => {
                     )}
 
                     {project.projectImg && (
-                      <div className=" relative">
+                      <div className="">
                         <Image
                           src={`${project.projectImg}`}
                           alt={`${project.title} preview`}
@@ -120,11 +118,6 @@ const Works = () => {
                       </div>
                     )}
                     <div className="absolute inset-0 bg-black/40"></div>
-                    {/* <div className="group-hover:block hidden transition-all  duration-500">
-                      <p className="  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 font-ClashDisplaySemiBold text-[#64FFDA] text-[16px] rounded-[8px] p-[12px] border border-[#64FFDA] flex items-center justify-center">
-                        See More
-                      </p>
-                    </div> */}
                   </div>
                   <div className=" space-y-[16px]">
                     <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
