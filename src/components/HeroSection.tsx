@@ -32,7 +32,7 @@ const HeroSection = () => {
           </p>
           <p className="font-ClashDisplayBold text-[32px] md:text-[40px] text-[#E7E8EA]">
             <Typewriter
-              words={["A Product Designer ", "A Product Manager "]}
+              words={["Product Designer ", "Product Manager "]}
               loop={true}
               cursor
               cursorStyle="_"

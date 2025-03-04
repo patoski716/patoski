@@ -14,6 +14,7 @@ import "aos/dist/aos.css";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 interface FormData {
   first_name: string;
@@ -112,9 +113,11 @@ const ContactPage = () => {
                     Call
                   </p>
 
-                  <p className="font-ClashDisplay text-[16px] text-[#E7E8EA]">
-                    +2348167000077
-                  </p>
+                  <Link href="tel:+2348167000077">
+                    <p className="font-ClashDisplay text-[16px] text-[#E7E8EA] cursor-pointer">
+                      +2348167000077
+                    </p>
+                  </Link>
                 </div>
               </div>
 
@@ -128,8 +131,16 @@ const ContactPage = () => {
                     Engage with me and keep your business at the forefront.
                   </p>
                   <div className="flex items-center gap-[16px]">
-                    <Image src={LinkedIn} alt="LinkedIn Icon" />
-                    <Image src={Whatsapp} alt="Facebook Icon" />
+                    <Link
+                      href="https://www.linkedin.com/in/patrick-chukwudifu-908b901ab/"
+                      target="_blank"
+                    >
+                      <Image src={LinkedIn} alt="LinkedIn Icon" />
+                    </Link>
+
+                    <Link href="https://wa.me/2348167000077" target="_blank">
+                      <Image src={Whatsapp} alt="WhatsApp Icon" />
+                    </Link>
                   </div>
                 </div>
               </div>

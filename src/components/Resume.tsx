@@ -8,7 +8,18 @@ const Resume = () => {
     "https://drive.google.com/file/d/1LArAtMCUVOKok9FWei6YI_XuxVIwBxnJ/view?usp=sharing";
   const experiences = [
     {
-      title: "Product Designer | Leptons Multiconcpet, Nigeria",
+      title: "Product Manager | Beyond Tech, Calabar, Nigeria",
+      period: "January 2024 – Present (Remote, Contract)",
+      responsibilities: [
+        "Leading the development of Work&Shop, a platform connecting skilled professionals, vendors, and customers.",
+        "Defining product strategy, roadmap, and key features to enhance marketplace efficiency.",
+        "Collaborating with designers, developers, and stakeholders to ensure seamless user experience.",
+        "Conducting user research and competitor analysis to refine product offerings.",
+        "Managing agile workflows, prioritizing tasks, and ensuring timely product execution.",
+      ],
+    },
+    {
+      title: "Senior Product Designer | Leptons Multiconcept, Abuja, Nigeria",
       period: "May 2024 – Present (Hybrid, Full Time)",
       responsibilities: [
         "Designed visually appealing and user-friendly interfaces for various digital products.",
@@ -19,7 +30,7 @@ const Resume = () => {
     },
     {
       title:
-        "Product Designer Tutor | Raadaa Partners International Limited, Nigeria",
+        "Product Designer Tutor | Raadaa Partners International Limited, Abuja, Nigeria",
       period: "November 2023 – March 2024 (Onsite, Contract)",
       responsibilities: [
         "Provided instruction on designing user-friendly interfaces for digital products.",
@@ -29,7 +40,7 @@ const Resume = () => {
       ],
     },
     {
-      title: "Product Designer | Khemshield, Nigeria",
+      title: "Product Designer | Khemshield, Abuja, Nigeria",
       period: "September 2022 – October 2023 (Remote, Full Time)",
       responsibilities: [
         "Designed visually appealing and user-friendly interfaces for various digital products.",
@@ -123,13 +134,13 @@ const Resume = () => {
                 Patrick Chimezie Chukwudifu
               </p>
               <p className="font-ClashDisplay text-[16px] text-justify leading-relaxed">
-                I&apos;m a Product Designer with 3 years of experience creating
-                user-centered, intuitive digital experiences. Skilled in user
-                research, wireframing, and prototyping, I focus on turning
-                complex problems into simple, effective solutions. With a strong
-                attention to detail and a user-first mindset, I drive designs
-                that enhance usability, improve engagement, and deliver
-                measurable business outcomes.
+                I&apos;m a Product Designer & Product Manager with over 3 years
+                of experience in creating intuitive, user-friendly, and scalable
+                digital experiences. With expertise in UX/UI design and product
+                strategy, I bridge the gap between design, development, and
+                business goals to build impactful products. Passionate about
+                problem-solving, I leverage tools like Jira, Trello, Figma, and
+                Slack to drive collaboration and efficiency.
               </p>
             </div>
           </div>
@@ -193,6 +204,7 @@ const Resume = () => {
                   />
                   <p className="">patrick-chukwudifu-908b901ab</p>
                 </div>
+
                 <div className="flex items-center gap-[6px]">
                   <Image
                     src="/assets/fluent_call-28-filled.svg"
