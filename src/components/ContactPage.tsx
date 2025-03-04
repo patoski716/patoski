@@ -36,10 +36,7 @@ const ContactPage = () => {
     watch,
   } = useForm<FormData>();
   const [charCount, setCharCount] = useState(0);
-  const [successMessage, setSuccessMessage] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
+  const [successMessage, setSuccessMessage] = useState("");
 
   React.useEffect(() => {
     const subscription = watch((value, { name }) => {
@@ -56,25 +53,10 @@ const ContactPage = () => {
   const onSubmit = async (data: FormData) => {
     try {
       await addDoc(collection(db, "contacts"), data);
-
-      setSuccessMessage({
-        type: "success",
-        message: "Message sent successfully! We will get back to you shortly.",
-      });
-
+      setSuccessMessage("Your message has been sent!");
       reset();
-      setCharCount(0);
-
-      setTimeout(() => {
-        setSuccessMessage({ type: null, message: "" });
-      }, 5000);
     } catch (error) {
       console.error("Error adding document: ", error);
-      setSuccessMessage({
-        type: "error",
-        message:
-          "An error occurred while sending your message. Please try again.",
-      });
     }
   };
 
@@ -95,16 +77,8 @@ const ContactPage = () => {
 
         <div className=" space-y-8 border border-[#E7E8EA] rounded-[16px] p-[10px] md:p-[42px]">
           <div className="space-y-[13px] text-center">
-            {successMessage.type && (
-              <div
-                className={`mt-4 p-4 rounded-lg font-ClashDisplay text-[16px] ${
-                  successMessage.type === "success"
-                    ? "bg-green-50 text-green-800"
-                    : "bg-red-50 text-red-800"
-                }`}
-              >
-                {successMessage.message}
-              </div>
+            {successMessage && (
+              <p className="text-green-600">{successMessage}</p>
             )}
 
             <p className="text-[32px] lg:text-[40px] font-ClashDisplaySemiBold text-[#E7E8EA]">

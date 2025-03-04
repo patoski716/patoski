@@ -106,7 +106,7 @@ const Works = () => {
                     {project.projectImg && (
                       <div className=" relative">
                         <Image
-                          src={`https://${project.projectImg}`}
+                          src={`${project.projectImg}`}
                           alt={`${project.title} preview`}
                           layout="fill"
                           objectFit="cover"

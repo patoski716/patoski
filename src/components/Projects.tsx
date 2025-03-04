@@ -79,7 +79,7 @@ const Projects = () => {
           <p className="w-full max-w-[219px] border border-[#E7E8EA]"></p>
         </div>
 
-        {projectsData.map((project, index) => {
+        {projectsData.slice(0, 3).map((project, index) => {
           const isEven = index % 2 === 0;
           const alignment = isEven ? "right" : "left";
           const isLoaded = imagesLoaded[project.id];
@@ -110,7 +110,7 @@ const Projects = () => {
 
                   {project.projectImg && (
                     <Image
-                      src={`https://${project.projectImg}`}
+                      src={`${project.projectImg}`}
                       alt={`${project.title} preview`}
                       layout="fill"
                       objectFit="cover"
@@ -129,21 +129,23 @@ const Projects = () => {
                       ? "left-5 md:left-10 md:right-auto text-start"
                       : "left-1/2 md:left-auto md:right-10 text-start md:text-end"
                   } w-full max-w-[461px] space-y-[16px] 
-                transform ${
-                  alignment === "left"
-                    ? "-translate-y-1/2 md:translate-y-0"
-                    : "-translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0"
-                } md:top-20`}
+          transform ${
+            alignment === "left"
+              ? "-translate-y-1/2 md:translate-y-0"
+              : "-translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0"
+          } md:top-20`}
                 >
                   <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
                     {project.title}
                   </p>
                   <div
                     className="px-[16px] md:px-[26px] py-[16px] md:py-[21px] 
-                  md:bg-[#172A45] rounded-[8px]"
+            md:bg-[#172A45] rounded-[8px]"
                   >
                     <p className="font-ClashDisplay text-[16px] text-[#E7E8EA] text-justify">
-                      {project.description}
+                      {project.description.length > 200
+                        ? project.description.slice(0, 200) + "..."
+                        : project.description}
                     </p>
                   </div>
                   <div
@@ -170,7 +172,7 @@ const Projects = () => {
           );
         })}
 
-        {projectsData.map((project, index) => {
+        {projectsData.slice(0, 3).map((project, index) => {
           const isLoaded = imagesLoaded[project.id];
 
           return (
@@ -196,7 +198,7 @@ const Projects = () => {
                   {project.projectImg && (
                     <div className=" relative">
                       <Image
-                        src={`https://${project.projectImg}`}
+                        src={`${project.projectImg}`}
                         alt={`${project.title} preview`}
                         layout="fill"
                         objectFit="cover"
@@ -208,18 +210,15 @@ const Projects = () => {
                     </div>
                   )}
                   <div className="absolute inset-0 bg-black/40"></div>
-                  {/* <div className="group-hover:block hidden transition-all duration-500">
-                    <p className="  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 font-ClashDisplaySemiBold text-[#64FFDA] text-[16px] rounded-[8px] p-[12px] border border-[#64FFDA] flex items-center justify-center">
-                      See More
-                    </p>
-                  </div> */}
                 </div>
                 <div className=" space-y-[16px]">
                   <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
                     {project.title}
                   </p>
                   <p className="font-ClashDisplay text-[16px] text-[#E7E8EA] text-justify">
-                    {project.description}
+                    {project.description.length > 200
+                      ? project.description.substring(0, 200) + "..."
+                      : project.description}
                   </p>
                   <div className={`flex items-center gap-[16px]`}>
                     {project.websiteUrl && (
