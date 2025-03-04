@@ -25,7 +25,7 @@ const HeroSection = () => {
       <div className=" grid gap-[20px] md:flex items-center md:justify-between">
         <div className="max-w-[800px] space-y-[16px]">
           <p className="text-[20px] font-ClashDisplay text-[#64FFDA]">
-            <span className=" animate-pulse">👋</span> Hi, my name is
+            <span className=" animate-pulse">👋</span> Hi,
           </p>
           <p className="font-ClashDisplayBold text-[24px] md:text-[40px] text-[#E7E8EA]">
             I&apos;m Patrick Chimezie Chukwudifu

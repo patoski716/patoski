@@ -9,7 +9,7 @@ const Resume = () => {
   const experiences = [
     {
       title: "Product Manager | Beyond Tech, Calabar, Nigeria",
-      period: "January 2024 – Present (Remote, Contract)",
+      period: "January 2025 – Present (Remote, Contract)",
       responsibilities: [
         "Leading the development of Work&Shop, a platform connecting skilled professionals, vendors, and customers.",
         "Defining product strategy, roadmap, and key features to enhance marketplace efficiency.",
@@ -79,7 +79,7 @@ const Resume = () => {
 
   const certifications = [
     "Google Professional UX Design Certification",
-    "IBM Professional Product Management Certificate ( In-View )",
+    "IBM Professional Product Management Certificate",
   ];
 
   useEffect(() => {
