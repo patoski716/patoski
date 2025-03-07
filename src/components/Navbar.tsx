@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Logo from "@assets/patrickLogo.svg";
@@ -29,29 +30,31 @@ const Navbar = () => {
   }, [pathname]);
 
   useEffect(() => {
-    if (pathname !== "/") return;
+    if (typeof window !== "undefined" && pathname === "/") {
+      const handleScroll = () => {
+        const currentSection = NAV_ITEMS.find(({ id }) => {
+          const element = document.getElementById(id);
+          if (element) {
+            const { top, bottom } = element.getBoundingClientRect();
+            return top <= 100 && bottom >= 100;
+          }
+          return false;
+        });
 
-    const handleScroll = () => {
-      const currentSection = NAV_ITEMS.find(({ id }) => {
-        const element = document.getElementById(id);
-        if (element) {
-          const { top, bottom } = element.getBoundingClientRect();
-          return top <= 100 && bottom >= 100;
+        if (currentSection) {
+          window.history.replaceState(null, "", `/#${currentSection.id}`);
+          setActiveSection(currentSection.id);
         }
-        return false;
-      });
+      };
 
-      if (currentSection) {
-        window.history.replaceState(null, "", `/#${currentSection.id}`);
-        setActiveSection(currentSection.id);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
   }, [pathname]);
 
   const handleSmoothScroll = (targetId: string) => {
+    if (typeof window === "undefined") return; // ✅ Prevents crashes
+
     if (pathname !== "/") {
       router.push(`/#${targetId}`);
       sessionStorage.setItem("scrollTarget", targetId);
