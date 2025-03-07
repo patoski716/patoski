@@ -2,7 +2,7 @@ import About from "@/components/About";
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
-import ContactPage from "@/components/ContactPage";
+// import ContactPage from "@/components/ContactPage";
 import Footer from "@/components/Footer";
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <HeroSection />
       <About />
       <Projects />
-      <ContactPage />
+      {/* <ContactPage /> */}
       <Footer />
     </div>
   );
