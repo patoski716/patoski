@@ -41,27 +41,35 @@ const Projects = () => {
   const [projectsData, setProjectsData] = useState<Project[]>([]);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchProjects = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "projects"));
-        const projectsList = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            title: data.title,
-            description: data.description,
-            figmaUrl: data.figmaUrl,
-            websiteUrl: data.websiteUrl,
-            projectImg: data.projectImg,
-          };
-        });
-        setProjectsData(projectsList);
+        if (isMounted) {
+          const projectsList = querySnapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              title: data.title,
+              description: data.description,
+              figmaUrl: data.figmaUrl,
+              websiteUrl: data.websiteUrl,
+              projectImg: data.projectImg,
+            };
+          });
+          setProjectsData(projectsList);
+        }
       } catch (error) {
         console.error("Error fetching projects: ", error);
       }
     };
 
     fetchProjects();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

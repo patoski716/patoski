@@ -25,10 +25,12 @@ interface FormData {
 
 const ContactPage = () => {
   useEffect(() => {
-    AOS.init({
-      duration: 3000,
-      once: true,
-    });
+    if (typeof window !== "undefined") {
+      AOS.init({
+        duration: 3000,
+        once: true,
+      });
+    }
   }, []);
   const {
     register,
