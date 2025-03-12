@@ -6,8 +6,15 @@ import ShareLink from "@assets/LinkIcon.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Link from "next/link";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "@/lib/firebase";
+import dynamic from "next/dynamic";
+
+const fetchFirestore = async () => {
+  const { collection, getDocs } = await import("firebase/firestore");
+  const { db } = await import("@/lib/firebase");
+  return { collection, getDocs, db };
+};
 
 interface Project {
   id: string;
@@ -39,38 +46,65 @@ const Projects = () => {
     }));
   };
   const [projectsData, setProjectsData] = useState<Project[]>([]);
-
   useEffect(() => {
     let isMounted = true;
-
+  
     const fetchProjects = async () => {
       try {
+        const { collection, getDocs, db } = await fetchFirestore();
         const querySnapshot = await getDocs(collection(db, "projects"));
+  
         if (isMounted) {
-          const projectsList = querySnapshot.docs.map((doc) => {
-            const data = doc.data();
-            return {
-              id: doc.id,
-              title: data.title,
-              description: data.description,
-              figmaUrl: data.figmaUrl,
-              websiteUrl: data.websiteUrl,
-              projectImg: data.projectImg,
-            };
-          });
-          setProjectsData(projectsList);
+          const projectsList = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+  
+          // setProjectsData(projectsList);
         }
       } catch (error) {
         console.error("Error fetching projects: ", error);
       }
     };
-
+  
     fetchProjects();
-
     return () => {
       isMounted = false;
     };
   }, []);
+  
+
+  // useEffect(() => {
+  //   let isMounted = true;
+
+  //   const fetchProjects = async () => {
+  //     try {
+  //       const querySnapshot = await getDocs(collection(db, "projects"));
+  //       if (isMounted) {
+  //         const projectsList = querySnapshot.docs.map((doc) => {
+  //           const data = doc.data();
+  //           return {
+  //             id: doc.id,
+  //             title: data.title,
+  //             description: data.description,
+  //             figmaUrl: data.figmaUrl,
+  //             websiteUrl: data.websiteUrl,
+  //             projectImg: data.projectImg,
+  //           };
+  //         });
+  //         setProjectsData(projectsList);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching projects: ", error);
+  //     }
+  //   };
+
+  //   fetchProjects();
+
+  //   return () => {
+  //     isMounted = false;
+  //   };
+  // }, []);
 
   return (
     <div
