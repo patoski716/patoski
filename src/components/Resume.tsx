@@ -3,9 +3,11 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Link from "next/link";
+
 const Resume = () => {
   const Url =
-    "https://drive.google.com/file/d/1LArAtMCUVOKok9FWei6YI_XuxVIwBxnJ/view?usp=sharing";
+    "https://drive.google.com/file/d/1wQYpoYZjMshFq0f8IWdkp5txvQJbKirx/view?usp=sharing";
   const experiences = [
     {
       title: "Product Manager | Beyond Tech, Calabar, Nigeria",
@@ -23,8 +25,8 @@ const Resume = () => {
       period: "May 2024 – Present (Hybrid, Full Time)",
       responsibilities: [
         "Designed visually appealing and user-friendly interfaces for various digital products.",
-        "Created wireframes and prototypes for testing.",
-        "Collaborated with cross-functional teams to ensure designs met design and technical requirements.",
+        "Created wireframes,mockup and prototypes for testing.",
+        "Collaborate with cross-functional teams to ensure designs met design and technical requirements.",
         "Conducted user research and usability testing to gather user feedback.",
       ],
     },
@@ -34,7 +36,7 @@ const Resume = () => {
       period: "November 2023 – March 2024 (Onsite, Contract)",
       responsibilities: [
         "Provided instruction on designing user-friendly interfaces for digital products.",
-        "Guided students in creating wireframes and prototypes, emphasizing testing.",
+        "Guided students in creating wireframes, mockups and prototyping.",
         "Facilitated collaborative projects, ensuring students understood design and technical requirements.",
         "Directed student projects involving user research and usability testing.",
       ],
@@ -45,7 +47,7 @@ const Resume = () => {
       responsibilities: [
         "Designed visually appealing and user-friendly interfaces for various digital products.",
         "Created wireframes and prototypes for testing.",
-        "Collaborated with cross-functional teams to ensure designs met design and technical requirements.",
+        "Collaborate with cross-functional teams to ensure designs met design and technical requirements.",
         "Conducted user research and usability testing to gather user feedback.",
       ],
     },
@@ -71,7 +73,7 @@ const Resume = () => {
       period: "2025 - Present",
     },
     {
-      degree: "HND in Computer Science ( Upper Credit )",
+      degree: "HND in Computer Science",
       institution: "Federal Polytechnic Nekede Owerri, Imo State",
       period: "November, 2016 - October, 2021",
     },
@@ -193,7 +195,9 @@ const Resume = () => {
                     height={20}
                     alt="email-icon"
                   />
-                  <p className="">patoski716@gmail.com</p>
+                  
+                  <Link href="mailto:patoski716@gmail.com"><p className="">patoski716@gmail.com</p></Link>
+
                 </div>
                 <div className="flex items-center gap-[6px]">
                   <Image
@@ -202,7 +206,10 @@ const Resume = () => {
                     height={20}
                     alt="linkedin-icon"
                   />
-                  <p className="">patrick-chukwudifu-908b901ab</p>
+                  <Link
+                      href="https://www.linkedin.com/in/patrick-chukwudifu-908b901ab/"
+                      target="_blank"
+                    ><p className="">patrick-chukwudifu-908b901ab</p></Link>
                 </div>
 
                 <div className="flex items-center gap-[6px]">
@@ -212,7 +219,7 @@ const Resume = () => {
                     height={20}
                     alt="call-icon"
                   />
-                  <p className="">+2348167000077</p>
+                  <Link href="tel:+2348167000077"><p className="">+2348167000077</p></Link>
                 </div>
               </div>
             </div>

@@ -102,9 +102,9 @@ const ContactPage = () => {
                   <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
                     Email
                   </p>
-                  <p className="font-ClashDisplay text-[16px] text-[#E7E8EA]">
+                  <Link href="mailto:patoski716@gmail.com"><p className="font-ClashDisplay text-[16px] text-[#E7E8EA]">
                     patoski716@gmail.com
-                  </p>
+                  </p></Link>
                 </div>
               </div>
 
