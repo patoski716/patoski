@@ -5,8 +5,6 @@ import FigmaIcon from "@assets/figmaIcon.svg";
 import ShareLink from "@assets/LinkIcon.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import Link from "next/link";
 interface Project {
   id: string;
@@ -98,9 +96,8 @@ const Works = () => {
                           alt={`${project.name} preview`}
                           layout="fill"
                           objectFit="cover"
-                          className={`opacity-60 transition-opacity duration-300 ${
-                            isLoaded ? "opacity-60" : "opacity-0"
-                          }`}
+                          className={`opacity-60 transition-opacity duration-300 ${isLoaded ? "opacity-60" : "opacity-0"
+                            }`}
                           onLoadingComplete={() =>
                             handleImageLoaded(project.id)
                           }

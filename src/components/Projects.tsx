@@ -131,8 +131,8 @@ const Projects = () => {
 
                 <div
                   className={`absolute top-1/2 ${alignment === "left"
-                      ? "left-5 md:left-10 md:right-auto text-start"
-                      : "left-1/2 md:left-auto md:right-10 text-start md:text-end"
+                    ? "left-5 md:left-10 md:right-auto text-start"
+                    : "left-1/2 md:left-auto md:right-10 text-start md:text-end"
                     } w-full max-w-[461px] space-y-[16px] 
           transform ${alignment === "left"
                       ? "-translate-y-1/2 md:translate-y-0"
@@ -154,8 +154,8 @@ const Projects = () => {
                   </div>
                   <div
                     className={`flex items-center ${alignment === "left"
-                        ? "justify-start"
-                        : "justify-start md:justify-end"
+                      ? "justify-start"
+                      : "justify-start md:justify-end"
                       } gap-[16px]`}
                   >
                     {project.app_link && (
