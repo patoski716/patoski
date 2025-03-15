@@ -11,8 +11,6 @@ import Whatsapp from "@assets/whatsapp.svg";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { db } from "@/lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import Link from "next/link";
 
@@ -56,14 +54,28 @@ const ContactPage = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await addDoc(collection(db, "contacts"), data);
+      const response = await fetch("https://patoski.riafly.com/v1/contacts/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to send message. Please try again.");
+      }
+  
       setSuccessMessage("Your message has been sent!");
       toast.success("Your message has been sent!");
       reset();
     } catch (error) {
-      console.error("Error adding document: ", error);
+      console.error("Error submitting form:", error);
+      toast.error("Failed to send message. Please try again.");
     }
   };
+  
+
 
   return (
     <div
@@ -257,11 +269,10 @@ const ContactPage = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full font-ClashDisplaySemiBold text-[16px] py-3 rounded-md transition ${
-                    isSubmitting
+                  className={`w-full font-ClashDisplaySemiBold text-[16px] py-3 rounded-md transition ${isSubmitting
                       ? "bg-gray-500 cursor-not-allowed"
                       : " border border-[#64FFDA]  text-[#64FFDA]"
-                  }`}
+                    }`}
                 >
                   {isSubmitting ? "Sending..." : "Send message"}
                 </button>

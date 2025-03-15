@@ -6,16 +6,14 @@ import ShareLink from "@assets/LinkIcon.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Link from "next/link";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 
 interface Project {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  projectImg?: string;
-  figmaUrl?: string;
-  websiteUrl?: string;
+  image?: string;
+  figma_link?: string;
+  app_link?: string;
 }
 
 interface LoadedImagesState {
@@ -31,37 +29,32 @@ const Projects = () => {
   }, []);
 
   const [imagesLoaded, setImagesLoaded] = useState<LoadedImagesState>({});
-
-  const handleImageLoaded = (id: string): void => {
-    setImagesLoaded((prev) => ({
-      ...prev,
-      [id]: true,
-    }));
-  };
   const [projectsData, setProjectsData] = useState<Project[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
     const fetchProjects = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "projects"));
+        setLoading(true);
+        const response = await fetch("https://patoski.riafly.com/v1/projects/");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
         if (isMounted) {
-          const projectsList = querySnapshot.docs.map((doc) => {
-            const data = doc.data();
-            return {
-              id: doc.id,
-              title: data.title,
-              description: data.description,
-              figmaUrl: data.figmaUrl,
-              websiteUrl: data.websiteUrl,
-              projectImg: data.projectImg,
-            };
-          });
-          setProjectsData(projectsList);
+          setProjectsData(data);
         }
       } catch (error) {
         console.error("Error fetching projects: ", error);
+        setError("Failed to fetch projects. Please try again later.");
+      } finally {
+        if (isMounted) setLoading(false);
       }
     };
 
@@ -71,6 +64,13 @@ const Projects = () => {
       isMounted = false;
     };
   }, []);
+
+  const handleImageLoaded = (id: string): void => {
+    setImagesLoaded((prev) => ({
+      ...prev,
+      [id]: true,
+    }));
+  };
 
   return (
     <div
@@ -95,12 +95,11 @@ const Projects = () => {
           return (
             <div className=" hidden md:block " key={index} data-aos="fade-up">
               <div
-                className={`relative ${
-                  alignment === "left" ? "flex items-center justify-end" : ""
-                }`}
+                className={`relative ${alignment === "left" ? "flex items-center justify-end" : ""
+                  }`}
               >
                 <div className="relative max-w-[820px] h-[414px] w-full  rounded overflow-hidden">
-                  {(!project.projectImg || !isLoaded) && (
+                  {(!project.image || !isLoaded) && (
                     <div className="absolute inset-0 bg-gray-300 animate-pulse">
                       <div className="h-full w-full flex items-center justify-center">
                         <svg
@@ -116,15 +115,14 @@ const Projects = () => {
                     </div>
                   )}
 
-                  {project.projectImg && (
+                  {project.image && (
                     <Image
-                      src={`${project.projectImg}`}
-                      alt={`${project.title} preview`}
+                      src={`${project.image}`}
+                      alt={`${project.name} preview`}
                       fill
                       style={{ objectFit: "cover" }}
-                      className={`opacity-60 transition-opacity duration-300 ${
-                        isLoaded ? "opacity-60" : "opacity-0"
-                      }`}
+                      className={`opacity-60 transition-opacity duration-300 ${isLoaded ? "opacity-60" : "opacity-0"
+                        }`}
                       onLoadingComplete={() => handleImageLoaded(project.id)}
                     />
                   )}
@@ -132,19 +130,17 @@ const Projects = () => {
                 </div>
 
                 <div
-                  className={`absolute top-1/2 ${
-                    alignment === "left"
+                  className={`absolute top-1/2 ${alignment === "left"
                       ? "left-5 md:left-10 md:right-auto text-start"
                       : "left-1/2 md:left-auto md:right-10 text-start md:text-end"
-                  } w-full max-w-[461px] space-y-[16px] 
-          transform ${
-            alignment === "left"
-              ? "-translate-y-1/2 md:translate-y-0"
-              : "-translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0"
-          } md:top-20`}
+                    } w-full max-w-[461px] space-y-[16px] 
+          transform ${alignment === "left"
+                      ? "-translate-y-1/2 md:translate-y-0"
+                      : "-translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0"
+                    } md:top-20`}
                 >
                   <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
-                    {project.title}
+                    {project.name}
                   </p>
                   <div
                     className="px-[16px] md:px-[26px] py-[16px] md:py-[21px] 
@@ -157,19 +153,18 @@ const Projects = () => {
                     </p>
                   </div>
                   <div
-                    className={`flex items-center ${
-                      alignment === "left"
+                    className={`flex items-center ${alignment === "left"
                         ? "justify-start"
                         : "justify-start md:justify-end"
-                    } gap-[16px]`}
+                      } gap-[16px]`}
                   >
-                    {project.websiteUrl && (
-                      <Link href={project.websiteUrl} target="blank">
+                    {project.app_link && (
+                      <Link href={project.app_link} target="blank">
                         <Image src={ShareLink} alt="share-icon" />
                       </Link>
                     )}
-                    {project.figmaUrl && (
-                      <Link href={project.figmaUrl} target="blank">
+                    {project.figma_link && (
+                      <Link href={project.figma_link} target="blank">
                         <Image src={FigmaIcon} alt="figma-icon" />
                       </Link>
                     )}
@@ -188,7 +183,7 @@ const Projects = () => {
               <div className="" key={index}>
                 <div className="  max-w-[361px] sm:max-w-full sm:w-full bg-[#172A45] p-[12px] rounded-[16px] space-y-[16px] md:hidden">
                   <div className="relative h-[228px] w-full  rounded overflow-hidden">
-                    {!project.projectImg && (
+                    {!project.image && (
                       <div className="absolute inset-0 bg-gray-300 animate-pulse">
                         <div className="h-full w-full flex items-center justify-center">
                           <svg
@@ -204,16 +199,15 @@ const Projects = () => {
                       </div>
                     )}
 
-                    {project.projectImg && (
+                    {project.image && (
                       <div className=" ">
                         <Image
-                          src={`${project.projectImg}`}
-                          alt={`${project.title} preview`}
+                          src={`${project.image}`}
+                          alt={`${project.name} preview`}
                           layout="fill"
                           objectFit="cover"
-                          className={`opacity-60 transition-opacity duration-300 ${
-                            isLoaded ? "opacity-60" : "opacity-0"
-                          }`}
+                          className={`opacity-60 transition-opacity duration-300 ${isLoaded ? "opacity-60" : "opacity-0"
+                            }`}
                           onLoadingComplete={() =>
                             handleImageLoaded(project.id)
                           }
@@ -223,7 +217,7 @@ const Projects = () => {
                   </div>
                   <div className=" space-y-[16px]">
                     <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
-                      {project.title}
+                      {project.name}
                     </p>
                     <p className="font-ClashDisplay text-[16px] text-[#E7E8EA] text-justify">
                       {project.description.length > 200
@@ -231,13 +225,13 @@ const Projects = () => {
                         : project.description}
                     </p>
                     <div className={`flex items-center gap-[16px]`}>
-                      {project.websiteUrl && (
-                        <Link href={project.websiteUrl} target="blank">
+                      {project.app_link && (
+                        <Link href={project.app_link} target="blank">
                           <Image src={ShareLink} alt="share-icon" />
                         </Link>
                       )}
-                      {project.figmaUrl && (
-                        <Link href={project.figmaUrl} target="blank">
+                      {project.figma_link && (
+                        <Link href={project.figma_link} target="blank">
                           <Image src={FigmaIcon} alt="figma-icon" />
                         </Link>
                       )}

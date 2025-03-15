@@ -10,11 +10,11 @@ import { db } from "@/lib/firebase";
 import Link from "next/link";
 interface Project {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  projectImg?: string;
-  figmaUrl?: string;
-  websiteUrl?: string;
+  image?: string;
+  figma_link?: string;
+  app_link?: string;
 }
 
 interface LoadedImagesState {
@@ -32,23 +32,13 @@ const Works = () => {
   const [imagesLoaded, setImagesLoaded] = useState<LoadedImagesState>({});
   const [projectsData, setProjectsData] = useState<Project[]>([]);
 
-  console.log(projectsData);
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "projects"));
-        const projectsList = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            title: data.title,
-            description: data.description,
-            figmaUrl: data.figmaUrl,
-            websiteUrl: data.websiteUrl,
-            projectImg: data.projectImg,
-          };
-        });
-        setProjectsData(projectsList);
+        const response = await fetch("https://patoski.riafly.com/v1/projects/"); // Replace with actual endpoint
+        if (!response.ok) throw new Error("Failed to fetch projects");
+        const data = await response.json();
+        setProjectsData(data);
       } catch (error) {
         console.error("Error fetching projects: ", error);
       }
@@ -85,7 +75,7 @@ const Works = () => {
               <div className="" key={index} data-aos="fade-up">
                 <div className=" group  max-w-[401px] h-[500px] bg-[#172A45] p-[12px] rounded-[16px] space-y-[16px]">
                   <div className="relative h-[228px] w-full rounded overflow-hidden">
-                    {(!project.projectImg || !isLoaded) && (
+                    {(!project.image || !isLoaded) && (
                       <div className="absolute inset-0 bg-gray-300 animate-pulse">
                         <div className="h-full w-full flex items-center justify-center">
                           <svg
@@ -101,11 +91,11 @@ const Works = () => {
                       </div>
                     )}
 
-                    {project.projectImg && (
+                    {project.image && (
                       <div className="">
                         <Image
-                          src={`${project.projectImg}`}
-                          alt={`${project.title} preview`}
+                          src={`${project.image}`}
+                          alt={`${project.name} preview`}
                           layout="fill"
                           objectFit="cover"
                           className={`opacity-60 transition-opacity duration-300 ${
@@ -121,19 +111,19 @@ const Works = () => {
                   </div>
                   <div className=" space-y-[16px]">
                     <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
-                      {project.title}
+                      {project.name}
                     </p>
                     <p className="font-ClashDisplay text-[16px] text-[#E7E8EA] text-justify h-[120px] overflow-auto no-scrollbar">
                       {project.description}
                     </p>
                     <div className={`flex items-center gap-[16px]`}>
-                      {project.websiteUrl && (
-                        <Link href={project.websiteUrl} target="blank">
+                      {project.app_link && (
+                        <Link href={project.app_link} target="blank">
                           <Image src={ShareLink} alt="share-icon" />
                         </Link>
                       )}
-                      {project.figmaUrl && (
-                        <Link href={project.figmaUrl} target="blank">
+                      {project.figma_link && (
+                        <Link href={project.figma_link} target="blank">
                           <Image src={FigmaIcon} alt="figma-icon" />
                         </Link>
                       )}
