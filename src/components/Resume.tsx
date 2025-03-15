@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Resume = () => {
   const Url =
-    "https://drive.google.com/file/d/1wQYpoYZjMshFq0f8IWdkp5txvQJbKirx/view?usp=sharing";
+    "https://drive.google.com/file/d/1O95Z47AGMv0mb4Y18WXFTtwaJieAHAf5/view?usp=sharing";
   const experiences = [
     {
       title: "Product Manager | Beyond Tech, Calabar, Nigeria",
