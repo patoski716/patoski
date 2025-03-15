@@ -97,10 +97,10 @@ const ContactPage = () => {
             )}
 
             <p className="text-[32px] lg:text-[40px] font-ClashDisplaySemiBold text-[#E7E8EA]">
-              Get in touch with us
+              Get in touch with me
             </p>
             <p className="font-ClashDisplay text-[16px] lg:text-[20px] text-[#E7E8EA]">
-              We are ready to engage all inquiries and questions
+              I am ready to engage all inquiries and questions
             </p>
           </div>
 
@@ -269,11 +269,10 @@ const ContactPage = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full font-ClashDisplaySemiBold text-[16px] py-3 rounded-md transition ${
-                    isSubmitting
+                  className={`w-full font-ClashDisplaySemiBold text-[16px] py-3 rounded-md transition ${isSubmitting
                       ? "bg-gray-500 cursor-not-allowed"
                       : " border border-[#64FFDA]  text-[#64FFDA]"
-                  }`}
+                    }`}
                 >
                   {isSubmitting ? "Sending..." : "Send message"}
                 </button>
