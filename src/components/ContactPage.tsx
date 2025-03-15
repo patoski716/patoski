@@ -13,6 +13,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import axios from "axios";
 
 interface FormData {
   first_name: string;
@@ -54,18 +55,17 @@ const ContactPage = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch("https://patoski.riafly.com/v1/contacts/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Failed to send message. Please try again.");
-      }
-  
+      const response = await axios.post(
+        "https://patoski.riafly.com/v1/contacts/",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response);
       setSuccessMessage("Your message has been sent!");
       toast.success("Your message has been sent!");
       reset();
@@ -74,8 +74,6 @@ const ContactPage = () => {
       toast.error("Failed to send message. Please try again.");
     }
   };
-  
-
 
   return (
     <div
@@ -114,9 +112,11 @@ const ContactPage = () => {
                   <p className="font-ClashDisplaySemiBold text-[24px] text-[#E7E8EA]">
                     Email
                   </p>
-                  <Link href="mailto:patoski716@gmail.com"><p className="font-ClashDisplay text-[16px] text-[#E7E8EA]">
-                    patoski716@gmail.com
-                  </p></Link>
+                  <Link href="mailto:patoski716@gmail.com">
+                    <p className="font-ClashDisplay text-[16px] text-[#E7E8EA]">
+                      patoski716@gmail.com
+                    </p>
+                  </Link>
                 </div>
               </div>
 
@@ -269,10 +269,11 @@ const ContactPage = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full font-ClashDisplaySemiBold text-[16px] py-3 rounded-md transition ${isSubmitting
+                  className={`w-full font-ClashDisplaySemiBold text-[16px] py-3 rounded-md transition ${
+                    isSubmitting
                       ? "bg-gray-500 cursor-not-allowed"
                       : " border border-[#64FFDA]  text-[#64FFDA]"
-                    }`}
+                  }`}
                 >
                   {isSubmitting ? "Sending..." : "Send message"}
                 </button>

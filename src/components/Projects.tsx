@@ -6,6 +6,7 @@ import ShareLink from "@assets/LinkIcon.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Link from "next/link";
+import axios from "axios";
 
 interface Project {
   id: string;
@@ -38,16 +39,12 @@ const Projects = () => {
 
     const fetchProjects = async () => {
       try {
-        const response = await fetch("https://patoski.riafly.com/v1/projects/");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const response = await axios.get(
+          "https://patoski.riafly.com/v1/projects/"
+        );
 
         if (isMounted) {
-          setProjectsData(data);
+          setProjectsData(response.data);
         }
       } catch (error) {
         console.error("Error fetching projects: ", error);
