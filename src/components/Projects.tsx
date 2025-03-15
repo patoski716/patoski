@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import FigmaIcon from "@assets/figmaIcon.svg";
 import ShareLink from "@assets/LinkIcon.svg";
@@ -33,7 +33,6 @@ const Projects = () => {
   const [projectsData, setProjectsData] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const isMountedRef = useRef(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -41,25 +40,17 @@ const Projects = () => {
         const response = await axios.get(
           "https://patoski.riafly.com/v1/projects/"
         );
-        if (isMountedRef.current) {
-          setProjectsData(response.data);
-        }
+        setProjectsData(response.data);
       } catch (error) {
-        console.error("Error fetching projects: ", error);
-        if (isMountedRef.current) {
-          setError("Failed to fetch projects. Please try again later.");
-        }
+        console.error("Error fetching projects:", error);
+        setError("Failed to fetch projects. Please try again later.");
       } finally {
-        if (isMountedRef.current) setLoading(false);
+        setLoading(false);
       }
     };
 
     fetchProjects();
-
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
+  }, []); // ✅ Empty dependency array ensures it runs only once
 
   const handleImageLoaded = (id: string): void => {
     setImagesLoaded((prev) => ({
