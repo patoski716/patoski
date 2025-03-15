@@ -6,6 +6,7 @@ import ShareLink from "@assets/LinkIcon.svg";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Link from "next/link";
+import axios from "axios";
 interface Project {
   id: string;
   name: string;
@@ -33,10 +34,10 @@ const Works = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("https://patoski.riafly.com/v1/projects/"); // Replace with actual endpoint
-        if (!response.ok) throw new Error("Failed to fetch projects");
-        const data = await response.json();
-        setProjectsData(data);
+        const response = await axios.get(
+          "https://patoski.riafly.com/v1/projects/"
+        );
+        setProjectsData(response.data);
       } catch (error) {
         console.error("Error fetching projects: ", error);
       }
@@ -96,8 +97,9 @@ const Works = () => {
                           alt={`${project.name} preview`}
                           layout="fill"
                           objectFit="cover"
-                          className={`opacity-60 transition-opacity duration-300 ${isLoaded ? "opacity-60" : "opacity-0"
-                            }`}
+                          className={`opacity-60 transition-opacity duration-300 ${
+                            isLoaded ? "opacity-60" : "opacity-0"
+                          }`}
                           onLoadingComplete={() =>
                             handleImageLoaded(project.id)
                           }
