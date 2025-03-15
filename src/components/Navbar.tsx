@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import Logo from "@assets/patrickLogo.svg";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+// import { useCallback } from "react";
+import { debounce } from "lodash";
 
 const NAV_ITEMS = [
   { id: "about", label: "About", number: "01." },
@@ -31,7 +33,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined" && pathname === "/") {
-      const handleScroll = () => {
+      const handleScroll = debounce(() => {
         const currentSection = NAV_ITEMS.find(({ id }) => {
           const element = document.getElementById(id);
           if (element) {
@@ -45,7 +47,7 @@ const Navbar = () => {
           window.history.replaceState(null, "", `/#${currentSection.id}`);
           setActiveSection(currentSection.id);
         }
-      };
+      }, 200); // Limits execution to once every 200ms
 
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
@@ -53,13 +55,15 @@ const Navbar = () => {
   }, [pathname]);
 
   const handleSmoothScroll = (targetId: string) => {
-    if (typeof window === "undefined") return; // ✅ Prevents crashes
+    if (typeof window === "undefined") return;
 
     if (pathname !== "/") {
       router.push(`/#${targetId}`);
       sessionStorage.setItem("scrollTarget", targetId);
       return;
     }
+
+    if (activeSection === targetId) return; // ✅ Prevents redundant updates
 
     const targetElement = document.getElementById(targetId);
     if (targetElement) {

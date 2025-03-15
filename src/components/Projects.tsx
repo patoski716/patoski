@@ -50,7 +50,7 @@ const Projects = () => {
     };
 
     fetchProjects();
-  }, []); // ✅ Empty dependency array ensures it runs only once
+  }, []);
 
   const handleImageLoaded = (id: string): void => {
     setImagesLoaded((prev) => ({
