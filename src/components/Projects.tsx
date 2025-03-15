@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import FigmaIcon from "@assets/figmaIcon.svg";
 import ShareLink from "@assets/LinkIcon.svg";
@@ -33,31 +33,31 @@ const Projects = () => {
   const [projectsData, setProjectsData] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const isMountedRef = useRef(true);
 
   useEffect(() => {
-    let isMounted = true;
-
     const fetchProjects = async () => {
       try {
         const response = await axios.get(
           "https://patoski.riafly.com/v1/projects/"
         );
-
-        if (isMounted) {
+        if (isMountedRef.current) {
           setProjectsData(response.data);
         }
       } catch (error) {
         console.error("Error fetching projects: ", error);
-        setError("Failed to fetch projects. Please try again later.");
+        if (isMountedRef.current) {
+          setError("Failed to fetch projects. Please try again later.");
+        }
       } finally {
-        if (isMounted) setLoading(false);
+        if (isMountedRef.current) setLoading(false);
       }
     };
 
     fetchProjects();
 
     return () => {
-      isMounted = false;
+      isMountedRef.current = false;
     };
   }, []);
 
