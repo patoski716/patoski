@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 import Logo from "@assets/patrickLogo.svg";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-// import { useCallback } from "react";
 import { debounce } from "lodash";
 
 const NAV_ITEMS = [
@@ -47,7 +46,7 @@ const Navbar = () => {
           window.history.replaceState(null, "", `/#${currentSection.id}`);
           setActiveSection(currentSection.id);
         }
-      }, 200); // Limits execution to once every 200ms
+      }, 200);
 
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
@@ -63,7 +62,7 @@ const Navbar = () => {
       return;
     }
 
-    if (activeSection === targetId) return; // ✅ Prevents redundant updates
+    if (activeSection === targetId) return;
 
     const targetElement = document.getElementById(targetId);
     if (targetElement) {

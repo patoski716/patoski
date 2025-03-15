@@ -127,10 +127,6 @@ const Works = () => {
                         </Link>
                       )}
                     </div>
-                    {/* <div className={`flex items-center gap-[16px]`}>
-                      <Image src={ShareLink} alt="share-icon" />
-                      <Image src={FigmaIcon} alt="figma-icon" />
-                    </div> */}
                   </div>
                 </div>
               </div>
