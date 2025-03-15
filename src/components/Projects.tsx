@@ -30,6 +30,7 @@ const Projects = () => {
 
   const [imagesLoaded, setImagesLoaded] = useState<LoadedImagesState>({});
   const [projectsData, setProjectsData] = useState<Project[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
